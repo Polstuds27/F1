@@ -1,0 +1,90 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-obsidian: #0b0b0d;
+  --color-graphite: #1b1d21;
+  --color-ivory: #f2f0eb;
+  --color-titanium: #a7a9ac;
+  --color-racing: #c8102e;
+
+  --font-display: 'Bodoni Moda Variable', 'Didot', 'Times New Roman', serif;
+  --font-sans: 'Hanken Grotesk Variable', 'Helvetica Neue', Arial, sans-serif;
+
+  --ease-cinema: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:root {
+  --gutter: clamp(20px, 4vw, 64px);
+  color-scheme: dark;
+}
+
+html {
+  background: var(--color-obsidian);
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-obsidian);
+  color: var(--color-ivory);
+  font-family: var(--font-sans);
+  font-weight: 350;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-racing);
+  color: var(--color-ivory);
+}
+
+:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 4px;
+}
+
+@layer components {
+  /* Display headlines. The optical size is capped so hairlines survive over photography. */
+  .display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-variation-settings: 'opsz' 32;
+    line-height: 0.92;
+    letter-spacing: -0.015em;
+  }
+
+  /* Small tracked labels used for captions, indices and navigation. */
+  .label {
+    font-size: 0.6875rem;
+    font-weight: 450;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+
+  .gutter {
+    padding-inline: var(--gutter);
+  }
+
+  .prose-editorial {
+    font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+    line-height: 1.65;
+    text-wrap: pretty;
+  }
+}
+
+@keyframes scroll-cue {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.scroll-cue {
+  animation: scroll-cue 2.8s var(--ease-cinema) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .scroll-cue { animation: none; transform: none; }
+  * { transition-duration: 0.01ms !important; }
+}
